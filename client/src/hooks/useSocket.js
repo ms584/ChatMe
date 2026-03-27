@@ -7,14 +7,16 @@ const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || '';
  * Custom hook to manage a Socket.io connection with JWT auth.
  * Uses refs for callbacks so closures are always fresh — avoids stale selectedUser etc.
  */
-const useSocket = (token, onNewMessage, onTyping) => {
+const useSocket = (token, onNewMessage, onTyping, onError) => {
   const socketRef = useRef(null);
 
   // Always-fresh refs for callbacks
   const onNewMessageRef = useRef(onNewMessage);
   const onTypingRef = useRef(onTyping);
+  const onErrorRef = useRef(onError);
   useEffect(() => { onNewMessageRef.current = onNewMessage; }, [onNewMessage]);
   useEffect(() => { onTypingRef.current = onTyping; }, [onTyping]);
+  useEffect(() => { onErrorRef.current = onError; }, [onError]);
 
   useEffect(() => {
     if (!token) return;
@@ -34,6 +36,7 @@ const useSocket = (token, onNewMessage, onTyping) => {
     // Wrapper listeners — always call the latest callback via ref
     socket.on('new_message', (msg) => onNewMessageRef.current?.(msg));
     socket.on('user_typing', (data) => onTypingRef.current?.(data));
+    socket.on('error', (err) => onErrorRef.current?.(err));
 
     socketRef.current = socket;
 
