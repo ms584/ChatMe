@@ -39,7 +39,11 @@ const ChatPage = () => {
     setAdminTyping(isTyping);
   };
 
-  const { sendMessage, sendTyping, socket } = useSocket(token, handleNewMessage, handleTyping);
+  const handleSocketError = (err) => {
+    alert(`Server Error: ${err.message}`);
+  };
+
+  const { sendMessage, sendTyping, socket } = useSocket(token, handleNewMessage, handleTyping, handleSocketError);
 
   // Listen for block/account_status events
   useEffect(() => {
