@@ -6,6 +6,8 @@
 ![Socket.io](https://img.shields.io/badge/Realtime-Socket.io-010101?logo=socket.io&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/Database-MongoDB-47A248?logo=mongodb&logoColor=white)
 
+[![💬 Open ChatMe — Live Demo](https://img.shields.io/badge/%F0%9F%92%AC%20Open%20ChatMe-Live%20Demo-6C63FF?style=for-the-badge)](https://chatme-t2ke.onrender.com)
+
 > **The Pain Point:** GitHub is the world’s largest and most active developer platform, yet it crucially lacks a native, real-time direct messaging system. Developers rely on scattered third-party tools to communicate. 
 
 **ChatMe** solves this by bridging the gap with a hyper-secure, real-time customer support and developer communication layer that authenticates users directly via GitHub OAuth. It serves as an instant "Developer Helpdesk" or direct messaging interface for project administrators.
