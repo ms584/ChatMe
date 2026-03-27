@@ -17,7 +17,7 @@ router.get('/', authenticate, isAdmin, async (req, res) => {
   try {
     const conversations = await Conversation.find()
       .select('-__v')
-      .populate('userId', 'username displayName email avatar githubId role isBlocked -__v')
+      .populate('userId', 'username displayName email avatar githubId role isBlocked')
       .sort({ lastMessageAt: -1 })
       .limit(500)
       .lean();
@@ -36,8 +36,8 @@ router.get('/block-history', authenticate, isAdmin, async (req, res) => {
   try {
     const logs = await BlockLog.find()
       .select('-__v')
-      .populate('userId', 'username displayName avatar -__v')
-      .populate('adminId', 'username displayName -__v')
+      .populate('userId', 'username displayName avatar')
+      .populate('adminId', 'username displayName')
       .sort({ createdAt: -1 })
       .limit(200)
       .lean();

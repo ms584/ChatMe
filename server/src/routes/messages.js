@@ -46,7 +46,7 @@ router.post('/broadcast', authenticate, isAdmin, async (req, res) => {
           { $set: { adminId: adminObjId, lastMessage: trimmed.substring(0, 100), lastMessageAt: new Date() } },
           { upsert: true }
         );
-        const populated = await msg.populate('senderId', 'username displayName avatar role -__v');
+        const populated = await msg.populate('senderId', 'username displayName avatar role');
         const sid = socketMap?.get(u._id.toString());
         if (sid && io) io.to(sid).emit('new_message', populated);
         return populated;
@@ -129,8 +129,8 @@ router.get('/:userId', authenticate, async (req, res) => {
     const messages = await Message.find(filter)
       .sort({ createdAt: -1 })
       .limit(limit)
-      .populate('senderId', 'username displayName avatar role -__v')
-      .populate('receiverId', 'username displayName avatar role -__v')
+      .populate('senderId', 'username displayName avatar role')
+      .populate('receiverId', 'username displayName avatar role')
       .lean();
 
     // Return in ascending order for display
@@ -197,7 +197,7 @@ router.post('/', authenticate, validateMessage, async (req, res) => {
     );
 
 
-    const populated = await message.populate('senderId', 'username displayName avatar role -__v');
+    const populated = await message.populate('senderId', 'username displayName avatar role');
 
     const io = req.app.get('io');
     if (io) {
