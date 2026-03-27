@@ -155,7 +155,7 @@ const setupSocket = (io, socketMap) => {
           { upsert: true }
         );
 
-        const populated = await message.populate('senderId', 'username displayName avatar role -__v');
+        const populated = await message.populate('senderId', 'username displayName avatar role');
 
         // Emit to recipient
         const recipientSocketId = socketMap.get(receiverId);
