@@ -165,7 +165,7 @@ const setupSocket = (io, socketMap) => {
         socket.emit('new_message', populated);
       } catch (err) {
         console.error('Socket send_message error:', err);
-        socket.emit('error', { message: 'Failed to send message' });
+        socket.emit('error', { message: `Failed to send message: ${err.message}` });
       }
     });
 
