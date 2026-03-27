@@ -90,6 +90,7 @@ app.use('/messages', messageRoutes);
 
 // Health check — rate-limited to prevent timing/enumeration attacks
 app.get('/health', generalLimiter, (req, res) => res.json({ status: 'ok' }));
+app.get('/ping', generalLimiter, (req, res) => res.json({ status: 'pong' }));
 
 // 404 handler
 app.use((req, res) => {
