@@ -8,67 +8,122 @@
 
 [![💬 Open ChatMe — Live Demo](https://img.shields.io/badge/%F0%9F%92%AC%20Open%20ChatMe-Live%20Demo-6C63FF?style=for-the-badge)](https://chatme-t2ke.onrender.com)
 
-> **The Pain Point:** GitHub is the world’s largest and most active developer platform, yet it crucially lacks a native, real-time direct messaging system. Developers rely on scattered third-party tools to communicate. 
+> **The Problem:** GitHub is the world's largest developer platform — yet it has no native real-time messaging. Developers rely on scattered third-party tools just to talk about the code they're already collaborating on.
+>
+> **ChatMe** bridges that gap. It's a hyper-secure, real-time support and messaging layer that authenticates users directly via GitHub OAuth — acting as an instant **Developer Helpdesk** for project administrators.
 
-**ChatMe** solves this by bridging the gap with a hyper-secure, real-time customer support and developer communication layer that authenticates users directly via GitHub OAuth. It serves as an instant "Developer Helpdesk" or direct messaging interface for project administrators.
+---
+
+## 🖥️ Screenshots
+
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <b>🔐 Login Page</b><br/><br/>
+      <img width="655" height="608" alt="ChatMe Login Page" src="https://github.com/user-attachments/assets/9edb2c4c-b84f-42e5-81f2-ac14156830ce" />
+      <sub>GitHub OAuth · Glassmorphism UI</sub>
+    </td>
+    <td align="center" width="50%">
+      <b>🖥️ Admin Dashboard</b><br/><br/>
+      <img width="1919" height="938" alt="ChatMe Admin Dashboard" src="https://github.com/user-attachments/assets/da3744b6-4887-4fa1-8611-0fbbd4d728bf" />
+      <sub>Real-time conversation list · Broadcast · Block History</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <b>💬 Admin Chat View</b><br/><br/>
+      <img width="1918" height="942" alt="ChatMe Admin Chat" src="https://github.com/user-attachments/assets/84df8265-927c-4cf6-ab88-65540daff1b9" />
+      <sub>Block · Clear Chat · Broadcast per user</sub>
+    </td>
+    <td align="center" width="50%">
+      <b>👤 User Chat View</b><br/><br/>
+      <img width="1919" height="943" alt="ChatMe User Chat" src="https://github.com/user-attachments/assets/439bccec-d4da-4092-bbda-1eeaa31b4d3a" />
+      <sub>Real-time messaging · Connected status</sub>
+    </td>
+  </tr>
+</table>
 
 ---
 
 ## ✨ Features
-- **GitHub Single Sign-On (SSO):** Seamless 1-click login using GitHub OAuth.
-- **Real-Time Messaging:** Instant delivery, read status, and live typing indicators powered by Socket.io.
-- **Centralized Admin Dashboard:** Administrators have a dynamic, real-time overview of all active user conversations.
-- **Push Broadcasting:** Admins can instantly broadcast messages to all non-blocked users.
-- **Administrative Moderation:** Hard delete messages, block abusive users, and clear malicious bot conversations.
-- **Glassmorphism UI:** Stunning, responsive front-end crafted with modern CSS Custom Properties.
+
+| Feature | Description |
+|---|---|
+| 🔐 **GitHub Single Sign-On** | 1-click login via GitHub OAuth — no passwords needed |
+| ⚡ **Real-Time Messaging** | Instant delivery, read receipts & live typing indicators via Socket.io |
+| 🖥️ **Admin Dashboard** | Centralized real-time overview of all active user conversations |
+| 📢 **Push Broadcasting** | Instantly blast a message to all non-blocked users |
+| 🛡️ **Moderation Tools** | Hard-delete messages, block abusive users, clear bot conversations |
+| 🎨 **Glassmorphism UI** | Stunning, responsive frontend built with modern CSS Custom Properties |
+
+---
 
 ## 🛡️ Enterprise-Grade Security
-ChatMe was explicitly engineered under rigorous penetration testing principles to handle hostile traffic:
-- **Authentication:** Stateless Pinned JWT (HS256) stored securely; resistant to `alg:none` bypassing and CPU-exhaustion (Long-token) attacks. 
-- **Database Safety:** Mongoose casting strictness, Index-Miss protections to stop O(N) Collection Scans, and NoSQL Injection sanitization (`express-mongo-sanitize`).
-- **Denial of Service (DoS) Hardening:** 
-  - Thundering Herd (Cache Stampede) Single-Flight limiters in memory.
-  - Granular API Rate Limiting + WebSocket message rate-limiting per client IP (`X-Forwarded-For` proxy resolution).
-  - Socket.io Max Payload bounded to 10KB to prevent Memory Exhaustion crashes.
-- **Data Leak Prevention:** Aggressive stripping of internal architecture metadata (e.g., MongoDB `__v`) before API JSON serialization.
+
+ChatMe was explicitly engineered under rigorous penetration-testing principles to handle hostile traffic.
+
+**🔑 Authentication**
+- Stateless Pinned JWT (HS256) stored securely
+- Resistant to `alg:none` bypass and CPU-exhaustion (long-token) attacks
+
+**🗄️ Database Safety**
+- Mongoose strict casting + Index-Miss protections to stop O(N) collection scans
+- NoSQL injection sanitization via `express-mongo-sanitize`
+
+**🔥 Denial of Service Hardening**
+- Thundering Herd (Cache Stampede) single-flight limiters in memory
+- Granular API rate limiting + WebSocket message rate-limiting per client IP (`X-Forwarded-For` proxy resolution)
+- Socket.io max payload bounded to **10KB** to prevent memory exhaustion crashes
+
+**🔒 Data Leak Prevention**
+- Aggressive stripping of internal architecture metadata (e.g., MongoDB `__v`) before API JSON serialization
 
 ---
 
 ## 🏗️ Technical Stack
 
-### **Frontend (`/client`)**
-- **Core:** React 18, Vite
-- **Routing:** React Router DOM v6
-- **State:** React Context API (Auth, Socket, Conversations)
-- **Networking:** Axios, Socket.io-client
-- **Styling:** Vanilla CSS Modules with dynamic variables
+### Frontend (`/client`)
 
-### **Backend (`/server`)**
-- **Core:** Node.js, Express.js
-- **Database:** MongoDB, Mongoose ORM
-- **Auth:** Passport.js (GitHub Strategy), JSON Web Tokens (JWT)
-- **Security:** Helmet, CORS, Express Rate Limit
+| Layer | Technology |
+|---|---|
+| Core | React 18, Vite |
+| Routing | React Router DOM v6 |
+| State | React Context API (Auth, Socket, Conversations) |
+| Networking | Axios, Socket.io-client |
+| Styling | Vanilla CSS Modules with dynamic CSS variables |
+
+### Backend (`/server`)
+
+| Layer | Technology |
+|---|---|
+| Core | Node.js, Express.js |
+| Database | MongoDB, Mongoose ORM |
+| Auth | Passport.js (GitHub Strategy), JSON Web Tokens (JWT) |
+| Security | Helmet, CORS, Express Rate Limit, express-mongo-sanitize |
 
 ---
 
-## 🚀 How to Use / Local Setup
+## 🚀 Local Setup
 
 ### Prerequisites
-- [Node.js](https://nodejs.org/) (v16 or higher)
-- [MongoDB](https://www.mongodb.com/) (Local instance or Atlas URI)
-- A GitHub OAuth Application (Setup via *GitHub Settings > Developer settings > OAuth Apps*)
+
+- [Node.js](https://nodejs.org/) v16 or higher
+- [MongoDB](https://www.mongodb.com/) (local instance or Atlas URI)
+- A GitHub OAuth App — create one at **GitHub Settings → Developer settings → OAuth Apps**
 
 ### 1. Clone the Repository
-\`\`\`bash
+
+```bash
 git clone https://github.com/ms584/ChatMe.git
 cd ChatMe
-\`\`\`
+```
 
 ### 2. Environment Configuration
-You need two \`.env\` files (one for the client, one for the server).
 
-**Server:** Create \`server/.env\`
-\`\`\`env
+You need two `.env` files — one for each end of the stack.
+
+**`server/.env`**
+```env
 PORT=5000
 NODE_ENV=development
 CLIENT_URL=http://localhost:5173
@@ -78,73 +133,78 @@ GITHUB_CLIENT_ID=your_github_client_id
 GITHUB_CLIENT_SECRET=your_github_client_secret
 GITHUB_CALLBACK_URL=http://localhost:5000/auth/github/callback
 ADMIN_GITHUB_USERNAME=your_github_username
-\`\`\`
+```
 
-**Client:** Create \`client/.env\`
-\`\`\`env
+**`client/.env`**
+```env
 VITE_API_URL=http://localhost:5000
-\`\`\`
+```
 
 ### 3. Install Dependencies
-Open two terminals and install packages for both ends:
-\`\`\`bash
-# Terminal 1: Setup Backend
+
+Open two terminals and run both simultaneously:
+
+```bash
+# Terminal 1 — Backend
 cd server
 npm install
 npm run dev
 
-# Terminal 2: Setup Frontend
+# Terminal 2 — Frontend
 cd client
 npm install
 npm run dev
-\`\`\`
+```
 
-### 4. Experience ChatMe
-- Navigate to `http://localhost:5173`
-- Click **Login with GitHub**
-- Since your Username matches `ADMIN_GITHUB_USERNAME`, you will unlock the **Admin Dashboard**.
-- Other users logging in will be routed directly to the customer chat interface.
+### 4. Open the App
+
+Navigate to `http://localhost:5173` and click **Sign in with GitHub**.
+
+> **Tip:** If your GitHub username matches `ADMIN_GITHUB_USERNAME`, you'll be routed to the **Admin Dashboard**. All other users land in the standard chat interface.
 
 ---
 
 ## ☁️ Deployment (Render.com)
 
-ChatMe is perfectly optimized for free-tier or production deployment on [Render](https://render.com). The repository contains two distinct applications that you should deploy separately.
+ChatMe is optimized for free-tier or production deployment on [Render](https://render.com). Deploy the two apps separately.
 
-### 1. Deploy the Backend Server (Web Service)
-1. In Render, create a new **Web Service**.
-2. Connect this GitHub repository.
-3. Configure the settings:
+### Step 1 — Deploy the Backend (Web Service)
+
+1. Create a new **Web Service** in Render and connect this repository.
+2. Configure:
    - **Root Directory:** `server`
    - **Environment:** `Node`
    - **Build Command:** `npm install`
-   - **Start Command:** `npm start` (Make sure you have `"start": "node server.js"` in `server/package.json`)
-4. Add all your Environment Variables (`MONGO_URI`, `JWT_SECRET`, etc.).
-   - Set `NODE_ENV=production`.
-   - Set `CLIENT_URL` to what your Frontend URL will be.
-5. Deploy the Service. *Copy the backend URL (e.g., https://chatme-backend.onrender.com).*
+   - **Start Command:** `npm start`
+3. Add all environment variables from `server/.env`, setting `NODE_ENV=production` and `CLIENT_URL` to your planned frontend URL.
+4. Deploy and copy the backend URL (e.g. `https://chatme-backend.onrender.com`).
 
-### 2. Update GitHub OAuth Settings
-Before deploying the frontend, go to your GitHub Developer Settings and update your OAuth App:
-- **Homepage URL:** Your planned Frontend URL
-- **Authorization callback URL:** Your new Backend URL + `/auth/github/callback` (e.g., `https://chatme-backend.onrender.com/auth/github/callback`)
+### Step 2 — Update GitHub OAuth Settings
 
-### 3. Deploy the Frontend (Static Site)
-1. In Render, create a new **Static Site**.
-2. Connect this same GitHub repository.
-3. Configure the settings:
+In **GitHub Developer Settings → OAuth Apps**, update your app:
+- **Homepage URL:** your planned frontend URL
+- **Authorization callback URL:** `https://chatme-backend.onrender.com/auth/github/callback`
+
+### Step 3 — Deploy the Frontend (Static Site)
+
+1. Create a new **Static Site** in Render and connect this repository.
+2. Configure:
    - **Root Directory:** `client`
    - **Build Command:** `npm install && npm run build`
    - **Publish Directory:** `dist`
-4. Add Environment Variables:
-   - `VITE_API_URL` = Your Backend Render URL
-5. **CRITICAL:** Add a Redirect/Rewrite rule under the Render "Redirects/Rewrites" tab so React Router works on refresh:
-   - **Source:** `/*`
-   - **Destination:** `/index.html`
-   - **Status:** `200`
-6. Deploy the Site!
+3. Add environment variable: `VITE_API_URL` = your backend Render URL
+4. Under **Redirects/Rewrites**, add:
+
+   | Source | Destination | Status |
+   |---|---|---|
+   | `/*` | `/index.html` | `200` |
+
+   > This is **critical** — without it, React Router will break on page refresh.
+
+5. Deploy!
 
 ---
 
 ## 📄 License
-This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for more details.
+
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
